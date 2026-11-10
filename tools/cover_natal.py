@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
 OUT = HERE + '/out6'
+_os.makedirs(OUT, exist_ok=True)
 img = g.bg_cu(0.0, 540)
 d = ImageDraw.Draw(img)
 items = [('spark', 880, 1060, 50, 0.2), ('spark', 190, 1040, 40, 1.1), ('sparkw', 900, 1500, 32, 2.0), ('spark', 150, 1480, 36, 0.7)]

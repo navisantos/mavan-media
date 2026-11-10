@@ -7,6 +7,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
 OUT = g.OUT
+_os.makedirs(OUT, exist_ok=True)
 
 # background: sunburst + soft gold disc behind Mari
 img = g.bg_cu(0.0, 540)
