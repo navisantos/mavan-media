@@ -1,0 +1,204 @@
+<title>Portal Mavan</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: cabeçalho com contadores, filtros, lista de publicações por data; toque abre o editor em folha única. */
+:root{
+  --bg:#f2f4f6; --surface:#ffffff; --ink:#1b2430; --muted:#5d6b7a; --line:#dde3e9;
+  --accent:#e0560f; --accent-ink:#ffffff; --ok:#1f8a4c; --ok-bg:#e1f3e8; --warn:#9a6200; --warn-bg:#fbeccb; --info:#2b5fb4; --info-bg:#e1ebfa; --done:#5d6b7a; --done-bg:#e8ecf0;
+  --f-display:'Space Grotesk',system-ui,sans-serif; --f-body:'Inter',system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12171d; --surface:#1b222b; --ink:#e8edf2; --muted:#9aa8b6; --line:#2c3642;
+  --accent:#ff7a3d; --accent-ink:#1a0d04; --ok:#5fd18d; --ok-bg:#16301f; --warn:#f0be5a; --warn-bg:#3a2d10; --info:#7fa9ee; --info-bg:#182a47; --done:#9aa8b6; --done-bg:#252e39; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12171d; --surface:#1b222b; --ink:#e8edf2; --muted:#9aa8b6; --line:#2c3642;
+  --accent:#ff7a3d; --accent-ink:#1a0d04; --ok:#5fd18d; --ok-bg:#16301f; --warn:#f0be5a; --warn-bg:#3a2d10; --info:#7fa9ee; --info-bg:#182a47; --done:#9aa8b6; --done-bg:#252e39; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 56px}
+.wrap{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+h1{font:700 26px/1.15 var(--f-display);margin:0;text-wrap:balance}
+.sub{color:var(--muted);margin:4px 0 0}
+.counts{display:flex;gap:8px;flex-wrap:wrap}
+.count{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px 12px;min-width:0}
+.count b{display:block;font:700 22px/1.1 var(--f-display);font-variant-numeric:tabular-nums}
+.count span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tab{font:500 13px var(--f-body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:7px 12px;border-radius:999px;cursor:pointer}
+.tab[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.list{display:flex;flex-direction:column;gap:8px;padding:0;margin:0;list-style:none}
+.item{display:grid;grid-template-columns:62px minmax(0,1fr);gap:12px;width:100%;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;color:inherit;font:inherit}
+.item:hover{border-color:var(--accent)}
+.date{border-right:1px solid var(--line);padding-right:10px;text-align:center}
+.date b{display:block;font:700 24px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.date span{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.t{font-weight:600;overflow-wrap:anywhere}
+.meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;align-items:center}
+.chip{font-size:12px;font-weight:500;padding:2px 8px;border-radius:999px;background:var(--done-bg);color:var(--done)}
+.chip.B{background:var(--info-bg);color:var(--info)}
+.chip.C{background:var(--warn-bg);color:var(--warn)}
+.chip.s-aprovado,.chip.flag-on{background:var(--ok-bg);color:var(--ok)}
+.chip.s-revisao{background:var(--warn-bg);color:var(--warn)}
+.chip.s-publicado{background:var(--done-bg);color:var(--done)}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:24px;color:var(--muted);text-align:center}
+.status-line{font-size:12px;color:var(--muted)}
+/* editor */
+.sheet-bg{position:fixed;inset:0;background:rgba(10,14,20,.55);display:flex;align-items:flex-end;justify-content:center;z-index:20}
+.sheet{background:var(--bg);width:100%;max-width:760px;max-height:94%;overflow:auto;border-radius:16px 16px 0 0;padding:16px max(16px,env(safe-area-inset-left,0px)) calc(20px + env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:14px}
+.sheet-head{display:flex;justify-content:space-between;gap:10px;align-items:center}
+.sheet-head h2{font:700 19px/1.2 var(--f-display);margin:0}
+.x{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:8px;padding:6px 12px;font:500 13px var(--f-body);cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px}
+label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.02em;min-width:0}
+input,select,textarea{font:15px/1.45 var(--f-body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:8px 10px;width:100%;min-width:0}
+textarea{resize:vertical;min-height:90px}
+textarea.big{min-height:230px}
+.flag{display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:15px;color:var(--ink);font-weight:600;flex-direction:row}
+.flag input{width:22px;height:22px;accent-color:var(--ok);flex:none}
+.flag small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.saved{font-size:12px;color:var(--muted);min-height:18px}
+.hint{font-size:12px;color:var(--muted);margin:0}
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Portal Mavan</h1>
+    <p class="sub">Revise o roteiro, as legendas e o horário de cada vídeo. Só vai ao ar o que estiver com “Liberado para publicar”.</p>
+  </header>
+  <div class="counts" id="counts" aria-live="polite"></div>
+  <div class="tabs" id="tabs" role="group" aria-label="Filtro">
+    <button class="tab" data-f="all" aria-pressed="true">Todos</button>
+    <button class="tab" data-f="pend" aria-pressed="false">Precisam de revisão</button>
+    <button class="tab" data-f="lib" aria-pressed="false">Liberados</button>
+  </div>
+  <div class="status-line" id="conn">Carregando publicações…</div>
+  <ul class="list" id="list"></ul>
+</div>
+<div id="sheetHost"></div>
+
+<script>
+(function(){
+  var STATUS={rascunho:'Rascunho',revisao:'Em revisão',aprovado:'Aprovado',publicado:'Publicado'};
+  var MONTHS=['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  var WD=['dom','seg','ter','qua','qui','sex','sáb'];
+  var docs={}, filter='all', openId=null, db=null, saveTimers={};
+  var listEl=document.getElementById('list'), countsEl=document.getElementById('counts'), connEl=document.getElementById('conn'), host=document.getElementById('sheetHost');
+
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function parts(d){var p=(d||'').split('-');if(p.length<3)return {d:'--',m:'',w:''};var dt=new Date(+p[0],+p[1]-1,+p[2]);return {d:p[2],m:MONTHS[+p[1]-1]||'',w:WD[dt.getDay()]||''}}
+  function sorted(){return Object.keys(docs).map(function(k){return Object.assign({id:k},docs[k])}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')})}
+
+  function renderCounts(all){
+    var lib=all.filter(function(p){return p.liberado}).length;
+    var rev=all.filter(function(p){return !p.liberado&&p.status!=='publicado'}).length;
+    var pub=all.filter(function(p){return p.status==='publicado'}).length;
+    countsEl.innerHTML='<div class="count"><b>'+lib+'</b><span>liberados</span></div><div class="count"><b>'+rev+'</b><span>a revisar</span></div><div class="count"><b>'+pub+'</b><span>já publicados</span></div>';
+  }
+  function renderList(){
+    var all=sorted(); renderCounts(all);
+    var items=all.filter(function(p){
+      if(filter==='pend')return !p.liberado&&p.status!=='publicado';
+      if(filter==='lib')return !!p.liberado&&p.status!=='publicado';
+      return true;});
+    if(!all.length){listEl.innerHTML='<li class="empty">Nenhuma publicação cadastrada ainda. As datas e os roteiros aparecem aqui assim que forem adicionados.</li>';return}
+    if(!items.length){listEl.innerHTML='<li class="empty">Nada neste filtro.</li>';return}
+    listEl.innerHTML=items.map(function(p){
+      var d=parts(p.date), st=p.status||'rascunho';
+      return '<li><button class="item" data-id="'+esc(p.id)+'"><div class="date"><b>'+d.d+'</b><span>'+d.m+' · '+d.w+'</span></div><div><div class="t">'+esc(p.titulo||'Sem título')+'</div><div class="meta">'
+        +'<span class="chip '+esc(p.tipo)+'">'+(p.tipo==='B'?'Cliente final':p.tipo==='C'?'Comunidade 3D':'Tipo?')+'</span>'
+        +'<span class="chip s-'+(st==='revisao'?'revisao':st)+'">'+STATUS[st]+'</span>'
+        +(p.liberado?'<span class="chip flag-on">Liberado para publicar</span>':'<span class="chip">Não liberado</span>')
+        +'<span class="chip">IG '+esc(p.horaIg||'—')+' · TikTok '+esc(p.horaTt||'—')+'</span></div></div></button></li>';
+    }).join('');
+  }
+
+  function field(id,name){var el=document.getElementById(id);return el}
+  function openSheet(id){
+    openId=id; var p=docs[id]; if(!p)return;
+    host.innerHTML='<div class="sheet-bg" id="bg"><div class="sheet" role="dialog" aria-modal="true" aria-label="Editar publicação">'
+    +'<div class="sheet-head"><h2>Editar publicação</h2><button class="x" id="close">Fechar</button></div>'
+    +'<label class="flag" for="f-liberado"><input type="checkbox" id="f-liberado"><span>Liberado para publicar<small>Marque só quando roteiro e legendas estiverem aprovados.</small></span></label>'
+    +'<label>Tema<input id="f-titulo" type="text"></label>'
+    +'<div class="grid">'
+    +'<label>Data<input id="f-date" type="date"></label>'
+    +'<label>Público<select id="f-tipo"><option value="B">Cliente final (brindes)</option><option value="C">Comunidade 3D</option></select></label>'
+    +'<label>Situação<select id="f-status"><option value="rascunho">Rascunho</option><option value="revisao">Em revisão</option><option value="aprovado">Aprovado</option><option value="publicado">Publicado</option></select></label>'
+    +'<label>Hora Instagram<input id="f-horaIg" type="time"></label>'
+    +'<label>Hora TikTok<input id="f-horaTt" type="time"></label>'
+    +'</div>'
+    +'<label>Roteiro<textarea class="big" id="f-roteiro"></textarea></label>'
+    +'<p class="hint">Uma fala por linha, no formato “Mari: texto” ou “Cliente: texto”.</p>'
+    +'<label>Legenda do Instagram<textarea id="f-legendaIg"></textarea></label>'
+    +'<label>Legenda do TikTok<textarea id="f-legendaTt"></textarea></label>'
+    +'<label>Observações<textarea id="f-notas"></textarea></label>'
+    +'<div class="saved" id="saved" aria-live="polite"></div>'
+    +'</div></div>';
+    ['titulo','date','tipo','status','horaIg','horaTt','roteiro','legendaIg','legendaTt','notas'].forEach(function(k){
+      var el=document.getElementById('f-'+k);
+      el.addEventListener('input',function(){queueSave(k,el.value)});
+      el.addEventListener('change',function(){queueSave(k,el.value)});
+    });
+    var lib=document.getElementById('f-liberado');
+    lib.addEventListener('change',function(){saveNow({liberado:lib.checked})});
+    document.getElementById('close').onclick=closeSheet;
+    document.getElementById('bg').addEventListener('mousedown',function(e){if(e.target.id==='bg')closeSheet()});
+    fillSheet(true);
+    if(db===null||!canWrite)setReadOnly();
+  }
+  var canWrite=true;
+  function setReadOnly(){
+    host.querySelectorAll('input,select,textarea').forEach(function(el){el.disabled=true});
+    var s=document.getElementById('saved'); if(s)s.textContent='Você pode ler, mas não editar. Peça acesso de colaborador a quem compartilhou o portal.';
+  }
+  function fillSheet(force){
+    var p=docs[openId]; if(!p)return;
+    var map={titulo:p.titulo,date:p.date,tipo:p.tipo||'B',status:p.status||'rascunho',horaIg:p.horaIg,horaTt:p.horaTt,roteiro:p.roteiro,legendaIg:p.legendaIg,legendaTt:p.legendaTt,notas:p.notas};
+    Object.keys(map).forEach(function(k){
+      var el=document.getElementById('f-'+k); if(!el)return;
+      if(!force&&(document.activeElement===el||saveTimers[k]))return;
+      var v=map[k]==null?'':map[k]; if(el.value!==v)el.value=v;
+    });
+    var lib=document.getElementById('f-liberado'); if(lib&&document.activeElement!==lib)lib.checked=!!p.liberado;
+  }
+  function closeSheet(){
+    Object.keys(saveTimers).forEach(function(k){clearTimeout(saveTimers[k]);delete saveTimers[k]});
+    host.innerHTML=''; openId=null;
+  }
+  function setSaved(t){var s=document.getElementById('saved'); if(s)s.textContent=t}
+  var pending={};
+  function queueSave(k,v){
+    pending[k]=v; clearTimeout(saveTimers[k]);
+    setSaved('Salvando…');
+    saveTimers[k]=setTimeout(function(){delete saveTimers[k];var o={};o[k]=pending[k];delete pending[k];saveNow(o)},700);
+  }
+  function saveNow(obj){
+    if(!db||!openId)return;
+    var id=openId; obj.updatedAt=new Date().toISOString();
+    db.doc('posts/'+id).update(obj).then(function(){setSaved('Salvo às '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}))},
+      function(e){setSaved('Não foi possível salvar ('+(e&&e.code||'erro')+'). Seu texto continua na tela.'); if(e&&e.code==='invalid_argument'){canWrite=false;setReadOnly()}});
+  }
+
+  listEl.addEventListener('click',function(e){var b=e.target.closest('.item');if(b)openSheet(b.getAttribute('data-id'))});
+  document.getElementById('tabs').addEventListener('click',function(e){
+    var b=e.target.closest('.tab'); if(!b)return; filter=b.getAttribute('data-f');
+    document.querySelectorAll('.tab').forEach(function(t){t.setAttribute('aria-pressed',t===b?'true':'false')}); renderList();
+  });
+
+  renderList();
+  var timer=setTimeout(function(){connEl.textContent='Ainda não consegui carregar os dados. Verifique a conexão.'},10000);
+  (async function(){
+    try{
+      var c=window.claude&&await window.claude.use('db');
+      if(!c){clearTimeout(timer);connEl.textContent='Abra o portal pelo link compartilhado, com a sua conta, para ver e editar as publicações.';return}
+      db=c;
+      db.collection('posts').onSnapshot(function(snap){
+        if(!snap.metadata.fromCache){clearTimeout(timer);connEl.textContent=''}
+        docs={}; snap.docs.forEach(function(d){docs[d.id]=d.data()});
+        renderList(); if(openId&&docs[openId])fillSheet(false);
+      },function(e){clearTimeout(timer);connEl.textContent='Sem acesso aos dados ('+(e&&e.code||'erro')+').'});
+      try{var u=await window.claude.use('user'); if(u){var w=await u.can('data.write'); if(w===false){canWrite=false}}}catch(_){}
+    }catch(e){clearTimeout(timer);connEl.textContent='Não foi possível iniciar o portal.'}
+  })();
+})();
+</script>
