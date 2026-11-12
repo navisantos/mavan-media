@@ -12,7 +12,7 @@ Este arquivo guarda o contexto do projeto para qualquer sessão futura do Claude
 - **Capa sempre com um pouco do tema do vídeo** (ex.: gorro de Natal na Mari e bolas penduradas). Não reaproveitar capa genérica.
 - Roteiro e legendas são da Mariana: o Claude propõe, ela edita no portal. Nunca alterar o texto que ela revisou.
 - Só publica o que estiver com a flag **Liberado para publicar** marcada no portal.
-- Números e fatos de custo vêm do Ivan (ex.: filamento R$ 100/kg, falha ~20%); energia calculada com 105 W (Bambu P1S/X1C em PLA) e tarifa Enel SP com impostos ~R$ 0,98/kWh. Peças de exemplo devem ser rotuladas como ilustrativas.
+- Números e fatos de custo vêm do Ivan (ex.: filamento R$ 100/kg, falha ~20%); energia calculada com 95 W (Bambu Lab A1 do Ivan imprimindo PLA; P1S/X1C seriam 105 W) e tarifa Enel SP com impostos ~R$ 0,98/kWh. Peças de exemplo devem ser rotuladas como ilustrativas.
 - Os itens de Natal que a Mavan faz: enfeite com nome da marca + espaço para foto, enfeite com ano gravado, etiqueta de presente que vira enfeite, kit para pintar em casa. Prazo de produção cerca de 1 semana; pedir cedo.
 
 ## Fluxo de produção de um vídeo

@@ -6,7 +6,8 @@ import gen4 as g
 from PIL import Image, ImageDraw, ImageFont
 
 W, H = 1080, 1920
-OUT = '/tmp/claude-0/-home-claude/06e0c612-1d53-5ee2-85ec-a21396d1799c/scratchpad/out7'
+OUT = HERE + '/out7'
+_os.makedirs(OUT, exist_ok=True)
 img = g.bg_cu(0.0, 540)
 d = ImageDraw.Draw(img)
 items = [('spark', 880, 1060, 50, 0.2), ('spark', 190, 1040, 40, 1.1), ('sparkw', 900, 1500, 32, 2.0), ('spark', 150, 1480, 36, 0.7)]
