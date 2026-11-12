@@ -21,8 +21,9 @@ Este arquivo guarda o contexto do projeto para qualquer sessão futura do Claude
 3. Baixar os áudios (o domínio `elevenlabsusercontent.com` precisa estar liberado nas configurações do Claude), converter para WAV mono 44,1 kHz em `tools/aud*/fin/NN.wav`.
 4. Copiar `tools/gen_natal_enfeites.py` (modelo mais recente), trocar `LINES`, `TITLES`, as funções de cena e o texto das pílulas finais. `python3 -I gen.py preview` gera um mosaico para conferir; `python3 -I gen.py render` gera o MP4 (~45 s de render).
 5. Capa: copiar `tools/cover_natal.py` e adaptar texto, chips e elementos do tema.
-6. Mandar vídeo e capa para o Ivan aprovar.
-7. Aprovado: copiar para `reels/AAAA-MM-DD-slug/video.mp4` e `capa.png`, `git push`, e preencher no portal os campos `videoUrl` e `capaUrl` com as URLs `https://raw.githubusercontent.com/navisantos/mavan-media/main/reels/<pasta>/<arquivo>`, e `status` = `aprovado`.
+6. Colocar a capa nos 3 primeiros frames: `tools/add_cover_frames.sh capa.png video_sem_capa.mp4 video.mp4` (o TikTok usa o primeiro frame como capa; o áudio é atrasado 0,1 s). Vale para todo vídeo novo; o de 11/11 já foi postado sem isso.
+7. Mandar vídeo (já com os 3 frames) e capa para o Ivan aprovar.
+8. Aprovado: copiar para `reels/AAAA-MM-DD-slug/video.mp4` e `capa.png`, `git push`, e preencher no portal os campos `videoUrl` e `capaUrl` com as URLs `https://raw.githubusercontent.com/navisantos/mavan-media/main/reels/<pasta>/<arquivo>`, e `status` = `aprovado`.
 
 O vínculo entre vídeo e post é feito **só pelos campos `videoUrl`/`capaUrl` do portal**, nunca pela data ou pelo nome da pasta (a Mariana pode mudar a data de um post).
 
