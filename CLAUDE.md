@@ -53,10 +53,11 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 
 ## Histórico
 - 10/11/2026 (C): "5 ajustes do Bambu Studio que o manual não conta". Publicado.
-- 11/11/2026 (B): enfeite de Natal com nome da marca e foto da família. Aprovado, agendado pela rotina.
+- 11/11/2026 (B): enfeite de Natal com nome da marca e foto da família. Publicado pela rotina.
+- 12/11/2026 (C): custo de imprimir uma peça (impressora Bambu Lab A1, PLA 95 W). Aprovado, agendado pela rotina.
 - Calendário completo, roteiros e status: no portal, não aqui (o repositório é público).
 
 ## Pendências conhecidas
 - Instagram com publicação automática (não rascunho) ainda não foi testado de verdade; o TikTok já foi.
-- Vídeo de custo de impressão (12/11): roteiro em revisão; falta decidir se inclui a depreciação da impressora.
+- Depreciação da impressora não entrou no vídeo de custo; se entrar numa próxima versão, falta o preço da A1.
 - Apagar arquivos de vídeo do repositório público depois de postar é opcional.
