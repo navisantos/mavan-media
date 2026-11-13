@@ -56,6 +56,7 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 - 10/11/2026 (C): "5 ajustes do Bambu Studio que o manual não conta". Publicado.
 - 11/11/2026 (B): enfeite de Natal com nome da marca e foto da família. Publicado pela rotina.
 - 12/11/2026 (C): custo de imprimir uma peça (impressora Bambu Lab A1, PLA 95 W). Aprovado, agendado pela rotina.
+- 13/11/2026 (B): amigo secreto personalizado (caneca genérica x enfeite com nome ou frase). CTA trocado de "comenta EU" (não funcionou) para "manda para quem tirou você". Postado manualmente no mesmo dia, depois do horário padrão.
 - Calendário completo, roteiros e status: no portal, não aqui (o repositório é público).
 
 ## Pendências conhecidas
