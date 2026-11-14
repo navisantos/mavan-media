@@ -87,7 +87,9 @@ textarea.big{min-height:230px}
 
   function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
   function parts(d){var p=(d||'').split('-');if(p.length<3)return {d:'--',m:'',w:''};var dt=new Date(+p[0],+p[1]-1,+p[2]);return {d:p[2],m:MONTHS[+p[1]-1]||'',w:WD[dt.getDay()]||''}}
-  function sorted(){return Object.keys(docs).map(function(k){return Object.assign({id:k},docs[k])}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')})}
+  function sorted(){return Object.keys(docs).map(function(k){return Object.assign({id:k},docs[k])}).sort(function(a,b){return (a.date||'').localeCompare(b.date||'')||(a.redes||'').localeCompare(b.redes||'')})}
+  function redesTxt(r){return r==='instagram'?'Só Instagram':r==='tiktok'?'Só TikTok':'Instagram + TikTok'}
+  function horasTxt(p){var r=p.redes; if(r==='instagram')return 'IG '+(p.horaIg||'—'); if(r==='tiktok')return 'TikTok '+(p.horaTt||'—'); return 'IG '+(p.horaIg||'—')+' · TikTok '+(p.horaTt||'—')}
 
   function renderCounts(all){
     var lib=all.filter(function(p){return p.liberado}).length;
@@ -109,7 +111,8 @@ textarea.big{min-height:230px}
         +'<span class="chip '+esc(p.tipo)+'">'+(p.tipo==='B'?'Cliente final':p.tipo==='C'?'Comunidade 3D':'Tipo?')+'</span>'
         +'<span class="chip s-'+(st==='revisao'?'revisao':st)+'">'+STATUS[st]+'</span>'
         +(p.liberado?'<span class="chip flag-on">Liberado para publicar</span>':'<span class="chip">Não liberado</span>')
-        +'<span class="chip">IG '+esc(p.horaIg||'—')+' · TikTok '+esc(p.horaTt||'—')+'</span></div></div></button></li>';
+        +'<span class="chip">'+esc(redesTxt(p.redes))+'</span>'
+        +'<span class="chip">'+esc(horasTxt(p))+'</span></div></div></button></li>';
     }).join('');
   }
 
@@ -123,6 +126,7 @@ textarea.big{min-height:230px}
     +'<div class="grid">'
     +'<label>Data<input id="f-date" type="date"></label>'
     +'<label>Público<select id="f-tipo"><option value="B">Cliente final (brindes)</option><option value="C">Comunidade 3D</option></select></label>'
+    +'<label>Redes<select id="f-redes"><option value="ambas">Instagram + TikTok</option><option value="instagram">Só Instagram</option><option value="tiktok">Só TikTok</option></select></label>'
     +'<label>Situação<select id="f-status"><option value="rascunho">Rascunho</option><option value="revisao">Em revisão</option><option value="aprovado">Aprovado</option><option value="publicado">Publicado</option></select></label>'
     +'<label>Hora Instagram<input id="f-horaIg" type="time"></label>'
     +'<label>Hora TikTok<input id="f-horaTt" type="time"></label>'
@@ -134,7 +138,7 @@ textarea.big{min-height:230px}
     +'<label>Observações<textarea id="f-notas"></textarea></label>'
     +'<div class="saved" id="saved" aria-live="polite"></div>'
     +'</div></div>';
-    ['titulo','date','tipo','status','horaIg','horaTt','roteiro','legendaIg','legendaTt','notas'].forEach(function(k){
+    ['titulo','date','tipo','redes','status','horaIg','horaTt','roteiro','legendaIg','legendaTt','notas'].forEach(function(k){
       var el=document.getElementById('f-'+k);
       el.addEventListener('input',function(){queueSave(k,el.value)});
       el.addEventListener('change',function(){queueSave(k,el.value)});
@@ -153,7 +157,7 @@ textarea.big{min-height:230px}
   }
   function fillSheet(force){
     var p=docs[openId]; if(!p)return;
-    var map={titulo:p.titulo,date:p.date,tipo:p.tipo||'B',status:p.status||'rascunho',horaIg:p.horaIg,horaTt:p.horaTt,roteiro:p.roteiro,legendaIg:p.legendaIg,legendaTt:p.legendaTt,notas:p.notas};
+    var map={titulo:p.titulo,date:p.date,tipo:p.tipo||'B',redes:p.redes||'ambas',status:p.status||'rascunho',horaIg:p.horaIg,horaTt:p.horaTt,roteiro:p.roteiro,legendaIg:p.legendaIg,legendaTt:p.legendaTt,notas:p.notas};
     Object.keys(map).forEach(function(k){
       var el=document.getElementById('f-'+k); if(!el)return;
       if(!force&&(document.activeElement===el||saveTimers[k]))return;

@@ -5,7 +5,7 @@ Este arquivo guarda o contexto do projeto para qualquer sessão futura do Claude
 ## Quem e o quê
 - Marca: Mavan 3D (@mavan.3d), produtos impressos em 3D. Dono: Ivan (São Paulo). Mariana revisa roteiros e legendas.
 - Conteúdo: vídeos verticais 2D animados (1080x1920, 30 fps) para Instagram Reels e TikTok. Personagens: **Mari** (a marca; olhos verdes, sem óculos, avental com coração) e o **cliente** cético (sarcástico).
-- Dois públicos, alternados: **C** = comunidade 3D (dicas, bastidores) e **B** = cliente final que quer brinde personalizado. Os vídeos B de novembro/dezembro focam em **Natal**, com itens que a pessoa ainda personaliza (nome da marca, foto da família, ano, pintura).
+- Dois públicos: **C** = comunidade 3D (dicas, bastidores) e **B** = cliente final que quer brinde personalizado. **Estratégia desde 14/11/2026:** C vai só no TikTok e B vai só no Instagram (C rendeu bem no TikTok e mal no Instagram; B ao contrário). Dia de postagem tem dois vídeos, um de cada. Mesma duração de antes (~45 s, cerca de 10 falas). Reavaliar cruzar redes com mais dados. Os vídeos B de novembro/dezembro focam em **Natal**, com itens que a pessoa ainda personaliza (nome da marca, foto da família, ano, pintura).
 - Tom: casual, em português do Brasil. O Ivan chama o Claude de "champs"/"capitão".
 
 ## Regras de conteúdo
@@ -29,20 +29,20 @@ O vínculo entre vídeo e post é feito **só pelos campos `videoUrl`/`capaUrl` 
 
 ## Portal de revisão
 - Página publicada como artifact (privada; o Ivan convida a Mariana como colaboradora): https://claude.ai/artifact/ELVSd2zJpKaCzFRgARvSkY. O código está em `tools/portal.html`.
-- Dados na coleção `posts` do banco do artifact (ferramenta ArtifactData), um documento por post, id = data inicial (`AAAA-MM-DD`). Campos: `date`, `tipo` (B/C), `titulo`, `roteiro` (uma fala por linha, "Mari: ..." / "Cliente: ..."), `legendaIg`, `legendaTt`, `horaIg`, `horaTt`, `status` (rascunho/revisao/aprovado/publicado), `liberado` (boolean), `videoUrl`, `capaUrl`, `notas`, `agendadoEm`, `updatedAt`.
+- Dados na coleção `posts` do banco do artifact (ferramenta ArtifactData), um documento por post, id = data inicial (`AAAA-MM-DD`). Quando há dois posts na mesma data, o segundo usa id `AAAA-MM-DD-ig` ou `AAAA-MM-DD-tt`; a rotina usa sempre o campo `date`. Campos: `date`, `tipo` (B/C), `redes` (`instagram`, `tiktok` ou `ambas`; ausente = ambas), `titulo`, `roteiro` (uma fala por linha, "Mari: ..." / "Cliente: ..."), `legendaIg`, `legendaTt`, `horaIg`, `horaTt`, `status` (rascunho/revisao/aprovado/publicado), `liberado` (boolean), `videoUrl`, `capaUrl`, `notas`, `agendadoEm`, `updatedAt`.
 - Ao republicar o portal, manter `capabilities: {db: {}, user: {}}`. Escrever em documentos existentes exige `if_version`.
 - Por que não GitHub Pages nem HTML no Drive: o repositório é público (expõe roteiros ainda não publicados), página estática não guarda edições, e Drive não abre HTML como página.
 
 ## Publicação (Metricool)
 - Marca @mavan.3d no Metricool, fuso America/Sao_Paulo; Instagram + TikTok (conta pessoal).
 - Ferramentas: `createScheduledPost` (precisa de URL pública de mídia; Instagram como REEL; marcar conteúdo gerado por IA), `getScheduledPosts`, `updateScheduledPost`, `getBestTimeToPostByNetwork`, análises. Não existe ferramenta para apagar rascunhos. A data não pode estar no passado.
-- TikTok em conta pessoal não aceita capa personalizada (só conta Business, que exige CNPJ).
+- TikTok: não ligar a marcação de conteúdo de marca própria (o único vídeo com ela teve 14 views; suspeita, não confirmada). Conta pessoal não aceita capa personalizada (só conta Business, que exige CNPJ).
 - Horários padrão: Instagram 10h e TikTok 18h, editáveis por post no portal. A curva do Metricool ainda é genérica (conta nova). Os horários vêm sempre do portal; a rotina só informa os melhores horários no relatório.
-- Cadência: um vídeo por dia até domingo 15/11/2026, depois a cada dois dias.
+- Cadência: postagem diária até domingo 15/11/2026, depois a cada dois dias (17, 19, 21/11...), sempre com um C no TikTok e um B no Instagram.
 - Black Friday: 27/11/2026.
 
 ## Rotina diária (tarefa agendada "Rotina diária Mavan 3D")
-Roda todo dia às 8h47 (SP): agenda no Metricool os posts liberados que já têm `videoUrl` (sem duplicar), marca `publicado` no portal, confere métricas de 24 h e 72 h (resumo semanal às segundas, comparando B x C), e envia relatório com um bloco de melhores horários. Não produz vídeo e não edita roteiro nem legenda.
+Roda todo dia às 8h47 (SP): agenda no Metricool, só nas redes indicadas em `redes`, os posts liberados que já têm `videoUrl` (sem duplicar), marca `publicado` no portal, confere métricas de 24 h e 72 h (resumo semanal às segundas, comparando B x C), e envia relatório com um bloco de melhores horários. Não produz vídeo e não edita roteiro nem legenda.
 
 Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, trocar gancho e capa; boa retenção com poucos compartilhamentos, CTA mais forte de mandar para um amigo; muitos salvamentos, virar série; muitos comentários "EU", repetir o formato de CTA.
 
@@ -57,6 +57,7 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 - 11/11/2026 (B): enfeite de Natal com nome da marca e foto da família. Publicado pela rotina.
 - 12/11/2026 (C): custo de imprimir uma peça (impressora Bambu Lab A1, PLA 95 W). Aprovado, agendado pela rotina.
 - 13/11/2026 (B): amigo secreto personalizado (caneca genérica x enfeite com nome ou frase). CTA trocado de "comenta EU" (não funcionou) para "manda para quem tirou você". Postado manualmente no mesmo dia, depois do horário padrão.
+- 14/11/2026: estratégia de separar por rede (C no TikTok, B no Instagram). Portal ganhou o campo Redes.
 - Calendário completo, roteiros e status: no portal, não aqui (o repositório é público).
 
 ## Pendências conhecidas
