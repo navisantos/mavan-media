@@ -17,7 +17,7 @@ Este arquivo guarda o contexto do projeto para qualquer sessão futura do Claude
 
 ## Fluxo de produção de um vídeo
 1. Roteiro aprovado no portal (flag marcada).
-2. Vozes na ElevenLabs (modelo `eleven_v4`, tags como `[sarcastic]`, `[explaining]`): voz **Sofia** `n2a9VtkZLl8j1FSXHsL7` para a Mari e **Luciano** `FOhTvAmqIK234DPck9zT` para o cliente. Gera 1 take por fala (cada take custa ~60–140 créditos). Nunca repetir a chamada de geração para "tentar de novo". Escrever números e siglas por extenso na fala ("três D").
+2. Vozes na ElevenLabs (modelo `eleven_v4`, tags como `[sarcastic]`, `[explaining]`): voz **Sofia** `n2a9VtkZLl8j1FSXHsL7` para a Mari e **Luciano** `FOhTvAmqIK234DPck9zT` para o cliente. Gera 1 take por fala (cada take custa ~60–140 créditos). Nunca repetir a chamada de geração para "tentar de novo". Escrever números e siglas por extenso na fala ("três D"). **Antes de gerar vozes de um vídeo novo, leia `docs/elevenlabs.md`** (resumo da documentação: tags, pronúncia, velocidade, ideias a testar).
 3. Baixar os áudios (o domínio `elevenlabsusercontent.com` precisa estar liberado nas configurações do Claude), converter para WAV mono 44,1 kHz em `tools/aud*/fin/NN.wav`.
 4. Copiar `tools/gen_natal_enfeites.py` (modelo mais recente), trocar `LINES`, `TITLES`, as funções de cena e o texto das pílulas finais. `python3 -I gen.py preview` gera um mosaico para conferir; `python3 -I gen.py render` gera o MP4 (~45 s de render).
 5. Capa: copiar `tools/cover_natal.py` e adaptar texto, chips e elementos do tema.
