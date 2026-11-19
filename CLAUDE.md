@@ -62,7 +62,10 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 
 - 14/11/2026: C "5 erros da primeira camada" (TikTok, 18h, ~62 s, 1 s de capa) e B "kit para pintar em casa" (Instagram, 10h). Agendados manualmente.
 
+- 15/11/2026: C "sinais de falha" (TikTok) e B "brindes" (Instagram). Publicados.
+- 17/11/2026: C "PLA, PETG ou TPU" (TikTok, 20h) e B "etiqueta de presente que vira enfeite" (Instagram, 20h). Publicados. Teste de horário 12h x 18h no TikTok ainda sem dados (as métricas do TikTok de 13 a 15/11 não tinham sincronizado no Metricool).
+- 19/11/2026: B "Black Friday: brinde sob medida" (Instagram, 10h, `tools/gen_blackfriday.py`) e C "suporte em árvore" (TikTok, 18h, `tools/gen_suporte.py`). Primeira produção com tags de voz descritivas (`[sarcastic, dry]`, `[explaining, warm, confident]`, `[warm, friendly, upbeat]`) nas falas de gancho e CTA; 22 takes, 1 por fala, ~1.955 créditos. Sofia e Luciano são vozes da Voice Library (não padrão), então não expiram em 31/12. Legendas escritas pelo Claude porque estavam vazias no portal (Mariana pode editar). Agendados pelo Claude a pedido do Ivan, sem passar pela aprovação prévia do vídeo; portal marcado `publicado` para a rotina não duplicar.
+
 ## Pendências conhecidas
-- Instagram com publicação automática (não rascunho) ainda não foi testado de verdade; o TikTok já foi.
 - Depreciação da impressora não entrou no vídeo de custo; se entrar numa próxima versão, falta o preço da A1.
 - Apagar arquivos de vídeo do repositório público depois de postar é opcional.
