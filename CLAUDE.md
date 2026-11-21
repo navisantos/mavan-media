@@ -49,6 +49,7 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 ## Código (`tools/`)
 - `gen4.py`: motor de personagens e utilidades (Stage com supersampling, `draw_mari`, `draw_cliente`, sincronia labial pelo envelope do áudio, pílulas, logo).
 - `gen_bambu_studio.py` e `gen_natal_enfeites.py`: geradores dos vídeos de dica (telas simuladas) e de Natal. `cover_*.py`: capas.
+- **Formato novo desde 21/11/2026: vídeo explicativo SEM personagem** (pedido do Ivan: sem esquete, sem Mari/cliente na tela). Só a voz da Sofia narrando (falas continuam com prefixo "Mari:" no portal), cenas desenhadas, **legenda grande queimada no vídeo** (palavra a palavra, ênfase em amarelo) e pílulas finais. Gerador: `tools/gen_explica.py` (`python3 -I gen_explica.py tt|ig preview|render`; para vídeo novo copiar e trocar o dicionário `TT`/`IG`, os áudios em `audNN/fin/NN.wav` e as funções de cena). Capas: `tools/cover_explica.py`. Foto real do kettlebell porta-joias (enviada pelo Ivan): `tools/assets/kettlebell_real.jpg` (usar foto real do produto; desenho de kettlebell só como ilustração, rotulada). Legenda do post (texto da rede) continua escrita no portal (`legendaIg`/`legendaTt`).
 - Dependências: Python 3 com Pillow e numpy, ffmpeg, fonte Poppins instalada em `/usr/share/fonts/truetype/google-fonts/`. O logo está em `tools/assets/logo.jpg`.
 - Render: pipe de frames para ffmpeg (libx264, crf 18, preset veryfast), áudio com `atrim/adelay/amix` e `loudnorm` I=-16, AAC 192k.
 
@@ -65,6 +66,8 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 - 15/11/2026: C "sinais de falha" (TikTok) e B "brindes" (Instagram). Publicados.
 - 17/11/2026: C "PLA, PETG ou TPU" (TikTok, 20h) e B "etiqueta de presente que vira enfeite" (Instagram, 20h). Publicados. Teste de horário 12h x 18h no TikTok ainda sem dados (as métricas do TikTok de 13 a 15/11 não tinham sincronizado no Metricool).
 - 19/11/2026: B "Black Friday: brinde sob medida" (Instagram, 10h, `tools/gen_blackfriday.py`) e C "suporte em árvore" (TikTok, 18h, `tools/gen_suporte.py`). Primeira produção com tags de voz descritivas (`[sarcastic, dry]`, `[explaining, warm, confident]`, `[warm, friendly, upbeat]`) nas falas de gancho e CTA; 22 takes, 1 por fala, ~1.955 créditos. Sofia e Luciano são vozes da Voice Library (não padrão), então não expiram em 31/12. Legendas escritas pelo Claude porque estavam vazias no portal (Mariana pode editar). Agendados pelo Claude a pedido do Ivan, sem passar pela aprovação prévia do vídeo; portal marcado `publicado` para a rotina não duplicar.
+
+- 21/11/2026: primeiros vídeos no formato sem personagem. C "5 problemas de imprimir 3D na praia" (TikTok, 12h, ~74 s, 1 s de capa, `reels/2026-11-21-praia/`) e B "kettlebell porta-joias para treinar nas férias" (Instagram, 10h, ~55 s, `reels/2026-11-21-kettlebell/`). Voz Sofia, 20 takes, ~2.000 créditos. Aguardam aprovação do Ivan e revisão da Mariana. O que Ivan confirmou sobre o kettlebell: cabem aliança e correntinha, abre com rosca, aliança não arranha porque não fica no dedo. Sem promessa de proteção contra roubo. Falta conferir onde fica a rosca (a cena "abre com rosca" é desenho esquemático rotulado como ilustração).
 
 ## Pendências conhecidas
 - Depreciação da impressora não entrou no vídeo de custo; se entrar numa próxima versão, falta o preço da A1.
