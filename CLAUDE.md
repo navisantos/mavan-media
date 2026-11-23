@@ -70,6 +70,8 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 
 - 21/11/2026: primeiros vídeos no formato sem personagem. C "5 problemas de imprimir 3D na praia" (TikTok, 12h, ~74 s, 1 s de capa, `reels/2026-11-21-praia/`) e B "kettlebell porta-joias para treinar nas férias" (Instagram, 10h, ~55 s, `reels/2026-11-21-kettlebell/`). Voz Sofia, 20 takes, ~2.000 créditos. Aguardam aprovação do Ivan e revisão da Mariana. O que Ivan confirmou sobre o kettlebell: cabem aliança e correntinha, abre com rosca, aliança não arranha porque não fica no dedo. Sem promessa de proteção contra roubo. Falta conferir onde fica a rosca (a cena "abre com rosca" é desenho esquemático rotulado como ilustração).
 
+- 23/11/2026: B "brinde que a pessoa usa" (Instagram, 20h, ~34 s, `reels/2026-11-23-brinde/`, `tools/gen_brinde.py`, capa `tools/cover_brinde.py`). Gancho "Seu cliente joga seu brinde no lixo". Fotos e clipe reais enviados pelo Ivan em `tools/assets/brindes/` (ratatouille para chef, pazinha de ração para pet shop, marcador de copo com pet estampado; o clipe de frames `tools/clip23/` não vai para o git). Falta foto de marcador com logo de empresa (no vídeo é só texto). Voz Sofia, 6 takes, ~580 créditos. Legenda escrita pelo Claude. Aprovado pelo Ivan e agendado.
+
 ## Pendências conhecidas
 - Depreciação da impressora não entrou no vídeo de custo; se entrar numa próxima versão, falta o preço da A1.
 - Apagar arquivos de vídeo do repositório público depois de postar é opcional.
