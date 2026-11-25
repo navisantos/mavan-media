@@ -72,6 +72,8 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 
 - 23/11/2026: B "brinde que a pessoa usa" (Instagram, 20h, ~34 s, `reels/2026-11-23-brinde/`, `tools/gen_brinde.py`, capa `tools/cover_brinde.py`). Gancho "Seu cliente joga seu brinde no lixo". Fotos e clipe reais enviados pelo Ivan em `tools/assets/brindes/` (ratatouille para chef, pazinha de ração para pet shop, marcador de copo com pet estampado; o clipe de frames `tools/clip23/` não vai para o git). Falta foto de marcador com logo de empresa (no vídeo é só texto). Voz Sofia, 6 takes, ~580 créditos. Legenda escrita pelo Claude. Aprovado pelo Ivan e agendado.
 
+- 23/11/2026: C "custo real com falha de 20%" (TikTok, agendado 20h porque a aprovação veio depois das 18h, ~48 s, 1 s de capa, `reels/2026-11-23-falha/`, `tools/gen_falha.py`, capa `tools/cover_falha.py`). Gancho "Filamento a cem reais o quilo parece barato. Até uma em cada cinco peças falhar." Números do Ivan (R$ 100/kg, falha ~20%); R$ 125 por kg de peça boa é cálculo do Claude (100 / 0,8, só filamento). Cenas todas ilustrativas. Voz Sofia, 7 takes, ~790 créditos. Legenda escrita pelo Claude.
+
 ## Pendências conhecidas
 - Depreciação da impressora não entrou no vídeo de custo; se entrar numa próxima versão, falta o preço da A1.
 - Apagar arquivos de vídeo do repositório público depois de postar é opcional.
