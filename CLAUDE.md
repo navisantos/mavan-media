@@ -77,3 +77,5 @@ Regras de decisão para métricas: abandono alto nos 3 primeiros segundos, troca
 ## Pendências conhecidas
 - Depreciação da impressora não entrou no vídeo de custo; se entrar numa próxima versão, falta o preço da A1.
 - Apagar arquivos de vídeo do repositório público depois de postar é opcional.
+
+- 25/11/2026: B "plaquinha com o nome do pet: a Mila na praia" (Instagram, agendado 12h, ~24 s, 3 frames de capa, `reels/2026-11-25-mila/`, `tools/gen_mila.py`, capa `tools/cover_mila.py`). Vídeo-base criado pelo Ivan no ElevenLabs (Mila, shiba, imagens geradas por IA); o Claude só editou: áudio original removido, voz Sofia (5 takes, ~405 créditos), legenda queimada, logo, rótulo "ilustração gerada por IA" queimado, CTA "PET". Post marcado como conteúdo de IA. Sem prazo, preço nem cor (não confirmados). Pendência: Ivan confirmar se a plaquinha vem em outras cores/formatos. Substituiu o rascunho "ano gravado".
